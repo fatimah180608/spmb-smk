@@ -1,0 +1,17 @@
+CARA MENJALANKAN SELEKSI
+
+1. Jalankan FINAL_SELEKSI_PERJURUSAN.sql di Supabase SQL Editor.
+2. Login sebagai admin.
+3. Pastikan calon siswa sudah punya Nilai Rapor, Nilai Tes, dan pilihan jurusan.
+4. Buka Admin > Calon Siswa.
+5. Klik "Proses & Tetapkan Seleksi".
+6. Sistem akan:
+   - menghitung Nilai Akhir = Rapor 60% + Tes 40%
+   - mengurutkan nilai tertinggi
+   - mengisi kuota per jurusan
+   - mencoba pilihan 2 jika pilihan 1 penuh
+   - menetapkan Diterima/Ditolak
+   - membuat peringkat PER JURUSAN
+   - mengirim notifikasi hasil ke akun siswa.
+
+Jika hanya ingin meluluskan satu calon secara manual, klik tombol "Luluskan" pada baris siswa yang masih Menunggu Seleksi.

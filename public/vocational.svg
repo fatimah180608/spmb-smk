@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+<defs><linearGradient id="a" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e8faf4"/><stop offset="1" stop-color="#cdeff0"/></linearGradient></defs>
+<rect width="900" height="600" rx="34" fill="url(#a)"/><rect x="70" y="75" width="760" height="450" rx="28" fill="#fff" stroke="#d8eae5" stroke-width="4"/>
+<rect x="110" y="115" width="680" height="285" rx="18" fill="#083f48"/><path d="M110 335h680v65H110z" fill="#0c7465"/>
+<g stroke="#8edbd0" stroke-width="4" opacity=".55"><path d="M160 145v170M240 145v170M320 145v170M400 145v170M480 145v170M560 145v170M640 145v170M720 145v170"/><path d="M110 205h680M110 270h680"/></g>
+<text x="450" y="370" text-anchor="middle" font-family="Arial" font-size="28" font-weight="900" fill="#d8fff6">TEKNOLOGI • KREATIVITAS • INDUSTRI</text>
+<circle cx="250" cy="455" r="28" fill="#18b894"/><circle cx="450" cy="455" r="28" fill="#1a9bc0"/><circle cx="650" cy="455" r="28" fill="#e0a62e"/>
+<text x="450" y="54" text-anchor="middle" font-family="Arial" font-size="18" font-weight="900" fill="#087f68">LINGKUNGAN PEMBELAJARAN MODERN</text>
+</svg>

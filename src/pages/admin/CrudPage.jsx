@@ -1,0 +1,27 @@
+import { useEffect, useState } from "react";
+import { Pencil, Plus, Search, Trash2, X } from "lucide-react";
+import { supabase } from "@/lib/supabase";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Card } from "@/components/ui/card";
+import { Dialog } from "@/components/ui/dialog";
+import { Table,THead,TBody,TR,TH,TD } from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+
+export default function CrudPage({ type }) {
+  const config = {
+    jurusan: {title:"Jurusan", table:"jurusan", search:"Cari jurusan...", fields:[["nama","Nama Jurusan"],["kuota","Kuota Penerimaan","number"],["deskripsi","Deskripsi","textarea"],["kompetensi","Kompetensi"],["prospek","Prospek"]], columns:["nama","deskripsi"]},
+    asal: {title:"Asal Sekolah", table:"asal_sekolah", search:"Cari sekolah...", fields:[["nama","Nama Sekolah"],["alamat","Alamat"]], columns:["nama","alamat"]},
+    berita: {title:"Berita", table:"berita", search:"Cari judul berita...", fields:[["judul","Judul"],["isi","Isi","textarea"],["image","URL Gambar"],["published","Published","checkbox"]], columns:["judul","created_at","published"]},
+    pengumuman: {title:"Pengumuman", table:"pengumuman", search:"Cari judul...", fields:[["judul","Judul"],["isi","Isi","textarea"],["published","Published","checkbox"]], columns:["judul","created_at","published"]},
+  }[type];
+  const [rows,setRows]=useState([]); const [search,setSearch]=useState(""); const [open,setOpen]=useState(false); const [edit,setEdit]=useState(null); const [form,setForm]=useState({});
+  async function load(){const {data,error}=await supabase.from(config.table).select("*").order("created_at",{ascending:false});if(!error)setRows(data||[])}
+  useEffect(()=>{load()},[type]);
+  const filtered=rows.filter(r=>JSON.stringify(r).toLowerCase().includes(search.toLowerCase()));
+  function start(row=null){setEdit(row);setForm(row?{...row}: (type==="pengumuman"||type==="berita")?{published:true}:{}) ;setOpen(true)}
+  async function save(e){e.preventDefault();const payload={...form};delete payload.id;delete payload.created_at;delete payload.updated_at;let result;if(edit)result=await supabase.from(config.table).update(payload).eq("id",edit.id);else result=await supabase.from(config.table).insert(payload);if(result.error){alert(result.error.message);return}setOpen(false);load()}
+  async function remove(id){if(!confirm("Hapus data ini?"))return;const {error}=await supabase.from(config.table).delete().eq("id",id);if(error)alert(error.message);else load()}
+  return <div><div className="mb-7 flex flex-col justify-between gap-4 sm:flex-row sm:items-end"><div><p className="text-sm font-semibold text-emerald-600">MASTER DATA</p><h1 className="mt-1 text-3xl font-black">{config.title}</h1><p className="mt-1 text-sm text-slate-500">Tambah, edit, hapus, dan cari data.</p></div><Button onClick={()=>start()}><Plus size={17}/> Tambah {config.title}</Button></div><Card><div className="border-b border-slate-100 p-4"><div className="relative max-w-md"><Search className="absolute left-3 top-3.5 text-slate-400" size={17}/><Input className="pl-10" placeholder={config.search} value={search} onChange={e=>setSearch(e.target.value)}/></div></div><Table><THead><TR>{config.columns.map(c=><TH key={c}>{c.replace("_"," ")}</TH>)}<TH>Aksi</TH></TR></THead><TBody>{filtered.map(r=><TR key={r.id}>{config.columns.map(c=><TD key={c}>{c==="published"?<Badge variant={r[c]?"default":"slate"}>{r[c]?"Aktif":"Draft"}</Badge>:c==="created_at"?new Date(r[c]).toLocaleDateString("id-ID"):<span className="line-clamp-2 max-w-md">{r[c]||"-"}</span>}</TD>)}<TD><div className="flex gap-1"><Button size="icon" variant="ghost" onClick={()=>start(r)}><Pencil size={16}/></Button><Button size="icon" variant="ghost" onClick={()=>remove(r.id)}><Trash2 size={16} className="text-red-500"/></Button></div></TD></TR>)}</TBody></Table>{!filtered.length&&<div className="p-10 text-center text-sm text-slate-500">Belum ada data.</div>}</Card><Dialog open={open} onClose={()=>setOpen(false)} title={edit?"Edit Data":`Tambah ${config.title}`}><form onSubmit={save} className="space-y-4">{config.fields.map(([name,label,kind])=>kind==="textarea"?<label key={name} className="block text-sm font-semibold">{label}<Textarea className="mt-2" value={form[name]||""} onChange={e=>setForm({...form,[name]:e.target.value})}/></label>:kind==="checkbox"?<label key={name} className="flex items-center gap-2 text-sm font-semibold"><input type="checkbox" checked={!!form[name]} onChange={e=>setForm({...form,[name]:e.target.checked})}/>{label}</label>:<label key={name} className="block text-sm font-semibold">{label}<Input type={kind==="number"?"number":"text"} min={kind==="number"?0:undefined} className="mt-2" value={form[name]??""} onChange={e=>setForm({...form,[name]:kind==="number"?Number(e.target.value):e.target.value})} required={name==="nama"||name==="judul"}/></label>)}<div className="flex justify-end gap-2 pt-3"><Button type="button" variant="outline" onClick={()=>setOpen(false)}><X size={16}/> Batal</Button><Button type="submit">Simpan</Button></div></form></Dialog></div>
+}

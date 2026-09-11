@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 760">
+<defs>
+ <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#dff8ff"/><stop offset=".55" stop-color="#a9dceb"/><stop offset="1" stop-color="#76bfc0"/></linearGradient>
+ <linearGradient id="wall" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7faf8"/><stop offset="1" stop-color="#dbe9e5"/></linearGradient>
+ <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#155e75"/><stop offset="1" stop-color="#083344"/></linearGradient>
+ <linearGradient id="road" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#647d7a"/><stop offset="1" stop-color="#2e4a48"/></linearGradient>
+ <filter id="shadow"><feGaussianBlur stdDeviation="12"/></filter>
+</defs>
+<rect width="1400" height="760" fill="url(#sky)"/>
+<circle cx="1160" cy="120" r="90" fill="#fff" opacity=".35"/>
+<path d="M0 430C170 350 270 410 430 365c180-51 275-18 440 30 190 55 320 10 530-60v425H0z" fill="#8bc9a9"/>
+<path d="M0 510c240-75 450-48 680-6 235 43 440 7 720-50v306H0z" fill="#4c9d7c"/>
+<ellipse cx="720" cy="655" rx="530" ry="55" fill="#163d39" opacity=".28" filter="url(#shadow)"/>
+<!-- main building -->
+<path d="M240 470V235l180-108h560l190 108v235z" fill="url(#wall)" stroke="#c5d8d3" stroke-width="4"/>
+<path d="M190 475l230-140h560l230 140z" fill="#edf5f2"/>
+<path d="M220 470V280l200-122h560l200 122v190" fill="none" stroke="#fff" stroke-width="14" opacity=".55"/>
+<!-- center facade -->
+<path d="M515 470V235h370v235z" fill="#f4faf8"/>
+<path d="M535 450V255h330v195z" fill="url(#glass)"/>
+<g opacity=".32" stroke="#b9eff1" stroke-width="4">
+<path d="M590 255v195M645 255v195M700 255v195M755 255v195M810 255v195"/>
+<path d="M535 320h330M535 385h330"/>
+</g>
+<!-- sign -->
+<rect x="574" y="275" width="252" height="100" rx="14" fill="#073f3b"/>
+<circle cx="610" cy="310" r="25" fill="#18b894"/>
+<text x="610" y="319" text-anchor="middle" font-family="Arial" font-size="22" font-weight="900" fill="white">TN</text>
+<text x="700" y="316" text-anchor="middle" font-family="Arial,sans-serif" font-size="21" font-weight="900" fill="white">SMK TEKNOLOGI</text>
+<text x="700" y="344" text-anchor="middle" font-family="Arial,sans-serif" font-size="21" font-weight="900" fill="#9bf2d5">NUSANTARA</text>
+<!-- side windows -->
+<g fill="url(#glass)" stroke="#b8d1cc" stroke-width="6">
+<path d="M285 315h180v130H285z"/><path d="M935 315h180v130H935z"/>
+</g>
+<g stroke="#9bd1d0" stroke-width="4" opacity=".55"><path d="M345 315v130M405 315v130M285 380h180M995 315v130M1055 315v130M935 380h180"/></g>
+<!-- columns and entrance -->
+<g fill="#fff"><rect x="505" y="380" width="32" height="90"/><rect x="863" y="380" width="32" height="90"/><rect x="460" y="445" width="470" height="25"/></g>
+<!-- flag -->
+<path d="M1125 185v175" stroke="#4c6764" stroke-width="7"/><path d="M1128 190h125v75h-125z" fill="#e53e3e"/><path d="M1128 227h125v38h-125z" fill="white"/>
+<!-- trees -->
+<g><rect x="145" y="390" width="24" height="115" fill="#6b4f3b"/><circle cx="155" cy="350" r="65" fill="#2f8f67"/><circle cx="105" cy="385" r="45" fill="#3da777"/><circle cx="200" cy="390" r="48" fill="#257e5b"/>
+<rect x="1200" y="395" width="24" height="110" fill="#6b4f3b"/><circle cx="1212" cy="350" r="64" fill="#2f8f67"/><circle cx="1165" cy="390" r="42" fill="#3da777"/><circle cx="1260" cy="390" r="45" fill="#257e5b"/></g>
+<!-- foreground -->
+<path d="M0 590c280-30 520-28 700 0s430 30 700-10v180H0z" fill="url(#road)"/>
+<path d="M90 670h210M390 670h210M690 670h210M990 670h210" stroke="#cfe3dd" stroke-width="10" stroke-linecap="round" opacity=".7"/>
+<text x="700" y="735" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" font-weight="700" fill="white" opacity=".75">UNGgul • BERKARAKTER • SIAP BERKARYA</text>
+</svg>
