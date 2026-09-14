@@ -1,8 +1,8 @@
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, CalendarDays } from "lucide-react";
+import { ArrowLeft, CalendarDays, ImageOff } from "lucide-react";
 import { useEffect, useState } from "react";
+
 import { supabase } from "@/lib/supabase";
-import { SCHOOL_IMAGES, STATIC_NEWS } from "@/lib/schoolImages";
 import { formatDate } from "@/lib/utils";
 import Loading from "@/components/Loading";
 
@@ -16,25 +16,11 @@ export default function BeritaDetail() {
     let alive = true;
 
     async function load() {
-
-      // Cari dulu dari berita static
-      const local = STATIC_NEWS.find(
-        (x) => String(x.id) === String(id)
-      );
-
-      if (local) {
-        setN(local);
-        setLoading(false);
-        return;
-      }
-
-      // Kalau Supabase tidak tersedia
       if (!supabase) {
         setLoading(false);
         return;
       }
 
-      // Cari di Supabase
       const { data, error } = await supabase
         .from("berita")
         .select("*")
@@ -68,7 +54,7 @@ export default function BeritaDetail() {
     return (
       <div className="container-app py-20">
         <h1 className="text-2xl font-black">
-          Pengumuman tidak ditemukan.
+          Berita tidak ditemukan.
         </h1>
 
         <Link
@@ -98,21 +84,38 @@ export default function BeritaDetail() {
         <div className="mt-6 overflow-hidden rounded-[30px] bg-white shadow-sm">
 
           {/* GAMBAR */}
-          <img
-            src={
-              n.image ||
-              SCHOOL_IMAGES.news[0]
-            }
-            alt={`Berita SMK Teknologi Nusantara: ${n.judul}`}
-            className="max-h-[520px] w-full object-cover"
-          />
+          <div className="relative flex min-h-[280px] items-center justify-center bg-slate-100 sm:min-h-[420px]">
+            {n.image?.trim() ? (
+              <img
+                src={n.image.trim()}
+                alt={`Berita SMK Teknologi Nusantara: ${n.judul}`}
+                className="max-h-[520px] w-full object-cover"
+                onError={(e) => {
+                  e.currentTarget.style.display = "none";
+                  e.currentTarget.nextElementSibling?.classList.remove(
+                    "hidden"
+                  );
+                }}
+              />
+            ) : null}
+
+            <div
+              className={`flex flex-col items-center justify-center gap-3 text-slate-400 ${
+                n.image?.trim() ? "hidden" : ""
+              }`}
+            >
+              <ImageOff size={44} />
+              <span className="text-sm font-semibold">
+                Tidak ada gambar
+              </span>
+            </div>
+          </div>
 
           <div className="p-7 sm:p-10">
 
             {/* TANGGAL */}
             <div className="flex items-center gap-2 text-sm text-slate-400">
               <CalendarDays size={16} />
-
               {formatDate(n.created_at)}
             </div>
 
